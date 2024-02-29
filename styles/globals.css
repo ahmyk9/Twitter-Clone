@@ -2,7 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-
-.hoverAnimation{
-    @apply hover:bg-white hover:bg-opacity-10 xl:p-3 rounded-full hover:cursor-pointer w-11 h-11 xl:w-auto xl:h-auto
+.hoverAnimation {
+  @apply hover:bg-white hover:bg-opacity-10 xl:p-3 rounded-full hover:cursor-pointer w-11 h-11 xl:w-auto xl:h-auto;
 }
+
+.iconsAnimation {
+  @apply hover:bg-opacity-10 hover:bg-[#1d9bf0] rounded-full w-9 h-9 flex items-center justify-center cursor-pointer
+}
+
+.tweetAnimation {
+    @apply hover:bg-opacity-10 hover:text-green-400  rounded-full  flex items-center justify-center cursor-pointer
+  }
