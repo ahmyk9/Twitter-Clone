@@ -7,13 +7,11 @@ import PostFeed from "@/components/PostFeed";
 import Trending from "@/components/Trending";
 import Banner from "@/components/Banner";
 
-
 export default function Home() {
   return (
     <div>
       <div
         className="bg-black min-h-screen text-[#e7e9ea]
-      <Banner></Banner>
       max-w-[1440px] mx-auto flex">
         <SideBar></SideBar>
         <PostFeed></PostFeed>

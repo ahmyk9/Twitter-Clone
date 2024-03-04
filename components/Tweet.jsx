@@ -37,7 +37,7 @@ function TweetHeader() {
           <div className="w-1 h-1 bg-gray-500 rounded-full"> </div>
           <span>2 hours ago</span>
         </div>
-        <span> Welcome to the FES Twitter Clone! </span>
+        <span> First Tweet! </span>
 
       </div>
 

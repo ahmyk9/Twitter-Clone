@@ -29,7 +29,7 @@ const SideBar = () => {
         <SideBarLink
           Icon={EllipsisHorizontalCircleIcon}
           text={"More"}></SideBarLink>
-        <div className="absolute bottom-0"> User</div>
+        <div className="absolute bottom-0"> </div>
         <button className="hidden xl:inline bg-[#1d9bf0] rounded-full h-[52px] w-[200px] text-lg font-bold mt-10">
           Tweet
         </button>
