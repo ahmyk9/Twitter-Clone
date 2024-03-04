@@ -5,19 +5,28 @@ import {closeSignUpModal, openSignUpModal} from "@/redux/modalSlice";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import {auth} from "@/firebase/firebase";
 import {setUser} from "@/redux/userSlice";
+import { useRouter } from "next/router";
 
 const SignUpModal = () => {
   const isOpen = useSelector((state) => state.modals.signUpModalOpen);
   //TODO: learn what useSelector and useDispatch is
   const dispatch = useDispatch();
 
- 
+  const router = useRouter()
 
   const [email, setEmail] = useState();
+  const [name, setName] = useState();
   const [password, setPassword] = useState();
+
+
+  async function handleGuestSignIn(){
+    await signInWithEmailAndPassword(auth, "guest98083370@gmail.com", "guest98083370")
+  }
 
   async function handleSignUp(event) {
     const userCredentials = await createUserWithEmailAndPassword(
@@ -25,6 +34,15 @@ const SignUpModal = () => {
       email,
       password
     );
+
+      await updateProfile(auth.currentUser, {
+        displayName: name,
+        photoURL: `./assets/profilePictures/pfp${Math.ceil(Math.random() * 6)}.png`
+        
+      })
+
+      router.reload()
+
   }
 
   //TODO: learn what this is doing
@@ -38,10 +56,10 @@ const SignUpModal = () => {
       dispatch(
         setUser({
           username: currentUser.email.split("@")[0],
-          name: null,
+          name: currentUser.displayName,
           email: currentUser.email,
           uid: currentUser.uid,
-          photoUrl: null,
+          photoURL: currentUser.photoURL,
         })
       );
     });
@@ -61,10 +79,11 @@ const SignUpModal = () => {
         className="flex justify-center items-center">
         <div
           className="w-[90%] h-[600px] bg-black text-white md:w-[560px]
-         md:h-[600px] rounded-lg border border-gray-700
-         flex justify-center">
+          md:h-[600px] rounded-lg border border-gray-700
+          flex justify-center">
           <div className="w-[90%] mt-8 flex flex-col">
             <button
+              onClick={handleGuestSignIn}
               className="rounded-md bg-white text-black w-full font-bold text-lg 
              p-2">
               Sign in as Guest
@@ -75,6 +94,7 @@ const SignUpModal = () => {
               className="h-10 mt-8 rounded-md bg-transparent border border-gray-700 p-6 "
               placeholder="Full Name"
               type={"text"}
+              onChange={(event) => setName(event.target.value)}
             />
             <input
               className="h-10 mt-8  rounded-md bg-transparent border border-gray-700 p-6 "

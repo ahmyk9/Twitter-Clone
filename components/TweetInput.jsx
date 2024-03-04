@@ -1,7 +1,14 @@
 import {ChartBarIcon, PhotoIcon, FaceSmileIcon, CalendarIcon, MapPinIcon} from "@heroicons/react/24/outline";
-import React from "react";
+import React, { useState } from "react";
 
 const TweetInput = () => {
+
+  const [text, setText] = useState("")
+
+  async function sendTweet(){
+    
+  }
+
   return (
     <div className=" flex space-x-3 p-3 border-b border-gray-700 ">
       <img
@@ -13,7 +20,9 @@ const TweetInput = () => {
         <textarea
           placeholder="Tweet!"
           className="bg-transparent resize-none outline-none
-            w-full min-h-[50px] text-lg"></textarea>
+          w-full min-h-[50px] text-lg"
+          onChange={event => setText(event.target.value)}
+          ></textarea>
       {/* Icons Divs*/}
 
       <div className="flex border-t  border-gray-700 pt-4 justify-between">

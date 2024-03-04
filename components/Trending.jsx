@@ -6,6 +6,12 @@ import {CheckBadgeIcon} from "@heroicons/react/24/solid";
 import React from "react";
 
 const Trending = () => {
+
+  function openProfile(){
+    window.open("https://ahmedkhilji.vercel.app/");
+  }
+
+
   return (
     <div className="hidden lg:flex flex-col ml-7 mt-4">
       <div className="flex space-x-3 bg-white bg-opacity-10 w-[300px] h-[44px] p-3 rounded-3xl">
@@ -60,7 +66,9 @@ const Trending = () => {
               <p className="text-xs text-gray-500">@ahmy</p>
             </div>
             <div>
-              <button className="hover:bg-blue-500 hover:text-white absolute right-2 bg-white rounded-3xl text-black text-sm font-bold h-8 w-20">
+              <button 
+              onClick={openProfile}
+              className="hover:bg-blue-500 hover:text-white absolute right-2 bg-white rounded-3xl text-black text-sm font-bold h-8 w-20">
                 Follow
               </button>
             </div>
@@ -83,7 +91,9 @@ const Trending = () => {
               <p className="text-xs text-gray-500">@ahmy</p>
             </div>
             <div>
-              <button className="hover:bg-blue-500 hover:text-white absolute right-2 bg-white rounded-3xl text-black text-sm font-bold h-8 w-20">
+              <button 
+              onClick={openProfile}
+              className="hover:bg-blue-500 hover:text-white absolute right-2 bg-white rounded-3xl text-black text-sm font-bold h-8 w-20">
                 Follow
               </button>
             </div>
@@ -106,7 +116,9 @@ const Trending = () => {
               <p className="text-xs text-gray-500">@ahmy</p>
             </div>
             <div>
-              <button className="hover:bg-blue-500 hover:text-white absolute right-2 bg-white rounded-3xl text-black text-sm font-bold h-8 w-20">
+              <button 
+              onClick={openProfile}
+              className="hover:bg-blue-500 hover:text-white absolute right-2 bg-white rounded-3xl text-black text-sm font-bold h-8 w-20">
                 Follow
               </button>
             </div>

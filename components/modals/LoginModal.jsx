@@ -2,11 +2,26 @@ import React, {useState} from "react";
 import Modal from "@mui/material/Modal";
 import {useDispatch, useSelector} from "react-redux";
 import {closeLogInUpModal, openLogInUpModal} from "@/redux/modalSlice";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from "@/firebase/firebase";
 
 const LoginUpModal = () => {
   const isOpen = useSelector((state) => state.modals.loginUpModalOpen);
   const dispatch = useDispatch();
   console.log(isOpen);
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+
+
+  async function handleSignIn(){
+    await signInWithEmailAndPassword(auth, email, password)
+  }
+
+  async function handleGuestSignIn(){
+    await signInWithEmailAndPassword(auth, "guest98083370@gmail.com", "guest98083370")
+  }
 
   return (
     <>
@@ -31,19 +46,23 @@ const LoginUpModal = () => {
               className="h-10 mt-8  rounded-md bg-transparent border border-gray-700 p-6 "
               placeholder="Email"
               type={"email"}
-            />
+              onChange={(event)=>setEmail(event.target.value)}
+              />
             <input
               className="h-10 mt-8  rounded-md bg-transparent border border-gray-700 p-6 "
               placeholder="Password"
               type={"password"}
+              onChange={(event)=>setPassword(event.target.value)}
             />
             <button
-              className="rounded-md bg-white mt-8 text-black w-full font-bold text-lg 
-             p-2">
+            onClick={handleSignIn}
+            className="rounded-md bg-white mt-8 text-black w-full font-bold text-lg 
+            p-2">
               Sign In 
             </button>
             <h1 className="text-center m-8 font-bold text-lg">or</h1>
             <button
+               onClick={handleGuestSignIn}
               className="rounded-md bg-white text-black w-full font-bold text-lg 
              p-2">
               Sign in as Guest

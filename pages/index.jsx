@@ -9,7 +9,7 @@ import Banner from "@/components/Banner";
 import { useSelector } from "react-redux";
 
 export default function Home() {
-  const username = useSelector(state=> state.user.username)
+  const username = useSelector(state => state.user.username)
   console.log(username)
   return (
     <div>
