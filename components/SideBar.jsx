@@ -7,6 +7,7 @@ import {
   EllipsisHorizontalCircleIcon,
   BookmarkIcon,
   UserIcon,
+  EllipsisHorizontalIcon
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
 
@@ -29,7 +30,17 @@ const SideBar = () => {
         <SideBarLink
           Icon={EllipsisHorizontalCircleIcon}
           text={"More"}></SideBarLink>
-        <div className="absolute bottom-0"> </div>
+        <div className="
+        bottom-0
+        hover:bg-white hover:bg-opacity-10 rounded-full cursor-pointer
+        absolute xl:p-3 flex justify-center items-center space-x-3"> 
+          <img className="w-10 h-10 rounded-full object-cover" src="/assets/pfp.png" alt="" />
+          <div className="hidden xl:inline">
+            <h1 className="font-bold whitespace-nowrap">name</h1>
+            <h1 className="text-gray-500 ">@username</h1>
+          </div>
+          <EllipsisHorizontalIcon className="h-5 hidden xl:inline" ></EllipsisHorizontalIcon>
+        </div>
         <button className="hidden xl:inline bg-[#1d9bf0] rounded-full h-[52px] w-[200px] text-lg font-bold mt-10">
           Tweet
         </button>

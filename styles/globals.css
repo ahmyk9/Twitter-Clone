@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Tailwind CSS */
+
 .hoverAnimation {
   @apply hover:bg-white hover:bg-opacity-10 xl:p-3 rounded-full hover:cursor-pointer w-11 h-11 xl:w-auto xl:h-auto;
 }
@@ -11,5 +13,12 @@
 }
 
 .tweetAnimation {
-    @apply hover:bg-opacity-10 hover:text-green-400  rounded-full  flex items-center justify-center cursor-pointer
-  }
+  @apply hover:bg-opacity-10 hover:text-green-400  rounded-full  flex items-center justify-center cursor-pointer
+}
+
+
+/* Custom CSS */
+
+body{
+  background-color: black
+}

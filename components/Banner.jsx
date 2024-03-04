@@ -15,6 +15,7 @@ const Banner = () => {
         <div className="flex space-x-3">
           <LoginUpModal></LoginUpModal>
           <SignUpModal></SignUpModal>
+         
         </div>
       </div>
     </div>

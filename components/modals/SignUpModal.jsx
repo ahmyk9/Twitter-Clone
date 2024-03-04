@@ -2,30 +2,51 @@ import React, {useEffect, useState} from "react";
 import Modal from "@mui/material/Modal";
 import {useDispatch, useSelector} from "react-redux";
 import {closeSignUpModal, openSignUpModal} from "@/redux/modalSlice";
-import {createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
 import {auth} from "@/firebase/firebase";
+import {setUser} from "@/redux/userSlice";
 
 const SignUpModal = () => {
   const isOpen = useSelector((state) => state.modals.signUpModalOpen);
+  //TODO: learn what useSelector and useDispatch is
   const dispatch = useDispatch();
-  console.log(isOpen);
+
+ 
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   async function handleSignUp(event) {
-    const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
-
+    const userCredentials = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
   }
 
+  //TODO: learn what this is doing
 
-  
-
-  useEffect(()=>{
-    const unSubscribe = onAuthStateChanged(auth, (currentUser)=>{
-      console.log(currentUser)
-    })
-  })
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (!currentUser) {
+        return;
+      }
+      console.log(currentUser);
+      dispatch(
+        setUser({
+          username: currentUser.email.split("@")[0],
+          name: null,
+          email: currentUser.email,
+          uid: currentUser.uid,
+          photoUrl: null,
+        })
+      );
+    });
+    return unSubscribe;
+  });
 
   return (
     <>
