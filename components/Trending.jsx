@@ -54,7 +54,7 @@ const Trending = () => {
             <div className="">
               <img
                 className="rounded-full h-11 w-11 object-cover"
-                src="/assets/dp.jpg"
+                src="/assets/ahmy dps/dp.jpg"
                 alt=""
               />
             </div>
@@ -63,7 +63,7 @@ const Trending = () => {
                 <h1 className="font-bold text-[15px]">Ahmed Khilji</h1>
                 <CheckBadgeIcon className="w-[18px] text-blue-400"></CheckBadgeIcon>
               </div>
-              <p className="text-xs text-gray-500">@ahmy</p>
+              <p className="text-xs text-gray-500">@ahmed</p>
             </div>
             <div>
               <button 
@@ -79,16 +79,16 @@ const Trending = () => {
             <div className="">
               <img
                 className="rounded-full h-11 w-11 object-cover"
-                src="/assets/dp.jpg"
+                src="/assets/ahmy dps/dp(not ahmy).jpg"
                 alt=""
               />
             </div>
             <div>
               <div className="flex space-x-1">
-                <h1 className="font-bold text-[15px]">Ahmed Khilji</h1>
+                <h1 className="font-bold text-[15px]">Not Ahmed </h1>
                 <CheckBadgeIcon className="w-[18px] text-blue-400"></CheckBadgeIcon>
               </div>
-              <p className="text-xs text-gray-500">@ahmy</p>
+              <p className="text-xs text-gray-500">@notahmed</p>
             </div>
             <div>
               <button 
@@ -104,16 +104,16 @@ const Trending = () => {
             <div className="">
               <img
                 className="rounded-full h-11 w-11 object-cover"
-                src="/assets/dp.jpg"
+                src="/assets/ahmy dps/dp(Batman).jpg"
                 alt=""
               />
             </div>
             <div>
               <div className="flex space-x-1">
-                <h1 className="font-bold text-[15px]">Ahmed Khilji</h1>
+                <h1 className="font-bold text-[15px]">Batman</h1>
                 <CheckBadgeIcon className="w-[18px] text-blue-400"></CheckBadgeIcon>
               </div>
-              <p className="text-xs text-gray-500">@ahmy</p>
+              <p className="text-xs text-gray-500">@batty</p>
             </div>
             <div>
               <button 

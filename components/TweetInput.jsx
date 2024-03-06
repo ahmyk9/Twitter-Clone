@@ -1,12 +1,28 @@
+import { db } from "@/firebase/firebase";
 import {ChartBarIcon, PhotoIcon, FaceSmileIcon, CalendarIcon, MapPinIcon} from "@heroicons/react/24/outline";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 const TweetInput = () => {
 
   const [text, setText] = useState("")
+  const user = useSelector(state=> state.user)
+
+
+// TODO: learn the todo app with nextJS and then continue this
 
   async function sendTweet(){
-    
+    const docRef =  await addDoc(collection(db, "posts"), {
+      username: user.username,
+      name: user.name, 
+      photoURL: user.photoURL,
+      uid: user.uid,
+      timestamp: serverTimestamp(),
+      likes: [],
+      tweet: text
+    })
+    setText("")
   }
 
   return (
@@ -22,6 +38,7 @@ const TweetInput = () => {
           className="bg-transparent resize-none outline-none
           w-full min-h-[50px] text-lg"
           onChange={event => setText(event.target.value)}
+          value={text}
           ></textarea>
       {/* Icons Divs*/}
 
@@ -44,7 +61,14 @@ const TweetInput = () => {
           </div>
    
         </div>
-        <button className="bg-[#1d9bf0] rounded-full px-4 py-1.5 h-[40px] w-[80px]">Tweet</button>
+        <button
+          onClick={sendTweet}
+          disabled={!text}
+         className="bg-[#1d9bf0] rounded-full px-4 py-1.5 h-[40px] w-[80px]
+         disabled:bg-opacity-50
+         ">
+          Tweet
+          </button>
       </div>
       </div>
     </div>
