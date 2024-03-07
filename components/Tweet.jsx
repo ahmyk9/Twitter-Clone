@@ -1,24 +1,77 @@
-import { openCommentUpModal } from "@/redux/modalSlice";
+import {db} from "@/firebase/firebase";
+import {
+  openCommentUpModal,
+  openLogInUpModal,
+  setCommentTweet,
+} from "@/redux/modalSlice";
 import {
   ArrowUpTrayIcon,
   ChartBarIcon,
   ChatBubbleOvalLeftEllipsisIcon,
   HeartIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline";
-import React from "react";
+
+import {HeartIcon as FilledH} from "@heroicons/react/24/solid";
+import {
+  arrayRemove,
+  arrayUnion,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
+import {useRouter} from "next/router";
+import React, {useEffect, useState} from "react";
 
 import Moment from "react-moment";
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
+const Tweet = ({data, id}) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
 
+  const user = useSelector((state) => state.user);
+  const [likes, setLikes] = useState();
+  const [comments, setComments] = useState();
 
-const Tweet = ({data}) => {
-  const dispatch = useDispatch()
+  async function likeComment(event) {
+    event.stopPropagation();
+    if (!user.username) {
+      dispatch(openLogInUpModal());
+      return;
+    }
 
+    if (likes.includes(user.uid)) {
+      await updateDoc(doc(db, "posts", id), {
+        likes: arrayRemove(user.uid),
+      });
+    } else {
+      await updateDoc(doc(db, "posts", id), {
+        likes: arrayUnion(user.uid),
+      });
+    }
+  }
 
+  useEffect(() => {
+    if (!id) return;
+
+    const unsubscribe = onSnapshot(doc(db, "posts", id), (doc) => {
+      setLikes(doc.data()?.likes);
+      setComments(doc.data()?.comments);
+    });
+    return unsubscribe;
+  }, []);
+
+async function deleteTweet(event){
+  event.stopPropagation()
+  await deleteDoc(doc(db, "posts", id))
+}
 
   return (
-    <div className="border-b  border-gray-700   ">
+    <div
+      onClick={() => router.push("/" + id)}
+      className="border-b  border-gray-700 cursor-pointer">
       <TweetHeader
         username={data?.username}
         name={data?.name}
@@ -26,18 +79,48 @@ const Tweet = ({data}) => {
         photoURL={data?.photoURL}
         text={data?.tweet}></TweetHeader>
       <div className=" flex p-3 ml-16 space-x-14  text-gray-500">
-        <div 
-        onClick={()=>dispatch(openCommentUpModal())}
-        className="tweetAnimation w-7 h-7">
+        <div
+          onClick={(event) => {
+            event.stopPropagation();
+            if (!user.username) {
+              dispatch(openLogInUpModal());
+              return;
+            }
+            dispatch(
+              setCommentTweet({
+                id: id,
+                tweet: data.tweet,
+                photoURL: data.photoURL,
+                name: data.name,
+                username: data.username,
+              })
+            );
+            dispatch(openCommentUpModal());
+          }}
+          className="commentAnimation w-7 h-7 flex justify-center items-center">
           <ChatBubbleOvalLeftEllipsisIcon className=" h[20px] w-[20px] "></ChatBubbleOvalLeftEllipsisIcon>
+          {comments?.length > 0 && <span>{comments.length}</span>}
         </div>
-        <div className="tweetAnimation w-7 h-7">
-          <HeartIcon className=" h-5 w-5 "></HeartIcon>
+        <div
+          onClick={likeComment}
+          className="heartAnimation w-7 h-7 flex justify-center items-center ">
+          {likes?.includes(user.uid) ? (
+            <FilledH className=" text-red-500 h-5 w-5 "></FilledH>
+          ) : (
+            <HeartIcon className=" h-5 w-5 "></HeartIcon>
+          )}
+
+          {likes?.length > 0 && <span>{likes.length}</span>}
         </div>
-        <div className="tweetAnimation w-7 h-7">
+        {user.uid === data?.uid && (<div 
+        onClick={deleteTweet}
+        className="cursor-pointer hover:text-red-600">
+          <TrashIcon className="w-5"></TrashIcon>
+        </div>)}
+        <div className="otherIconsAnimation w-7 h-7 ">
           <ChartBarIcon className=" h-5 w-5"></ChartBarIcon>
         </div>
-        <div className="tweetAnimation w-7 h-7">
+        <div className="otherIconsAnimation w-7 h-7">
           <ArrowUpTrayIcon className=" h-5 w-5"></ArrowUpTrayIcon>
         </div>
       </div>

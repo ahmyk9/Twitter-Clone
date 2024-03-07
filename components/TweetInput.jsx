@@ -1,18 +1,25 @@
 import { db } from "@/firebase/firebase";
+import { openLogInUpModal } from "@/redux/modalSlice";
 import {ChartBarIcon, PhotoIcon, FaceSmileIcon, CalendarIcon, MapPinIcon} from "@heroicons/react/24/outline";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const TweetInput = () => {
 
   const [text, setText] = useState("")
   const user = useSelector(state=> state.user)
-
+  const dispatch = useDispatch()
 
 // TODO: learn the todo app with nextJS and then continue this
 
   async function sendTweet(){
+
+    if (!user.username){
+      dispatch(openLogInUpModal())
+      return
+    }
+
     const docRef =  await addDoc(collection(db, "posts"), {
       username: user.username,
       name: user.name, 
@@ -29,7 +36,7 @@ const TweetInput = () => {
     <div className=" flex space-x-3 p-3 border-b border-gray-700 ">
       <img
         className="w-11 h-11 rounded-full object-cover"
-        src="/assets/dp.jpg"
+        src={user.photoURL || "/assets/twitter-logo.png"}
         alt=""
       />
       <div className="w-full ">
