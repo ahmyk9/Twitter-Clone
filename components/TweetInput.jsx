@@ -11,7 +11,6 @@ const TweetInput = () => {
   const user = useSelector(state=> state.user)
   const dispatch = useDispatch()
 
-// TODO: learn the todo app with nextJS and then continue this
 
   async function sendTweet(){
 

@@ -84,7 +84,7 @@ const CommentsPage = ({tweetData}) => {
             </div>
           </div>
 
-          <div className="flex justify-between border-b items-center border-gray-700 p-2">
+          {/* <div className="flex justify-between border-b items-center border-gray-700 p-2">
             <div className="flex justify-center items-center p-1 space-x-2">
               <img
                 className="w-12 h-12 object-cover rounded-full"
@@ -100,7 +100,7 @@ const CommentsPage = ({tweetData}) => {
          ">
               Tweet
             </button>
-          </div>
+          </div> */}
 
           {tweetData.comments?.map((comment) => (
             <div className="border-b  border-gray-700   ">
