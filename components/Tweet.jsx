@@ -23,7 +23,6 @@ import {
 } from "firebase/firestore";
 import {useRouter} from "next/router";
 import React, {useEffect, useState} from "react";
-
 import Moment from "react-moment";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -128,9 +127,9 @@ async function deleteTweet(event){
   );
 };
 
-export function TweetHeader({username, name, timestamp, text, photoURL}) {
+export function TweetHeader({ username, name, timestamp, text, photoURL }) {
   return (
-    <div className=" flex space-x-3 p-3 border-gray-700 ">
+    <div className="flex space-x-3 p-3 border-gray-700">
       <img
         className="w-11 h-11 rounded-full object-cover"
         src={photoURL}
@@ -140,15 +139,18 @@ export function TweetHeader({username, name, timestamp, text, photoURL}) {
         <div className="flex items-center space-x-2 text-gray-500">
           <h1 className="text-white font-bold">{name}</h1>
           <span>@{username}</span>
-          <div className="w-1 h-1 bg-gray-500 rounded-full"> </div>
-          <Moment fromNow>
-            <span>{timestamp}</span>
-          </Moment>
+          <div className="w-1 h-1 bg-gray-500 rounded-full"></div>
+          {timestamp ? (
+            <Moment fromNow>{timestamp}</Moment>
+          ) : (
+            <span>Loading...</span> // fail safe, if timestamp is missing
+          )}
         </div>
-        <span> {text}</span>
+        <span>{text}</span>
       </div>
     </div>
   );
 }
+
 
 export default Tweet;
