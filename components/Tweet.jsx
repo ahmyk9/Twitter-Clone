@@ -143,7 +143,7 @@ export function TweetHeader({ username, name, timestamp, text, photoURL }) {
           {timestamp ? (
             <Moment fromNow>{timestamp}</Moment>
           ) : (
-            <span>Loading...</span> // fail safe, if timestamp is missing
+            <span>Loading...</span> // Fallback if timestamp is missing
           )}
         </div>
         <span>{text}</span>
@@ -151,6 +151,7 @@ export function TweetHeader({ username, name, timestamp, text, photoURL }) {
     </div>
   );
 }
+
 
 
 export default Tweet;
