@@ -30,7 +30,8 @@ const CommentModal = () => {
       username: user.username,
       name: user.name,
       photoURL: user.photoURL,
-      comment: comment
+      comment: comment,
+      timestamp: new Date()
     }
     await updateDoc(docRef, {
       comments: arrayUnion(commentDetails)

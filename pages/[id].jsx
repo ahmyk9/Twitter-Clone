@@ -28,8 +28,12 @@ export async function getServerSideProps(context) {
     name: data.name,
     photoURL: data.photoURL,
     text: data.tweet,
-    comments: data.comments || null,
-    timestamp: JSON.stringify(data.timestamp.toDate()),
+    comments:
+      data.comments?.map((comment) => ({
+        ...comment,
+        timestamp: comment.timestamp?.toDate?.().toISOString() ?? null,
+      })) || null,
+    timestamp: data.timestamp?.toDate().toISOString() ?? null,
   };
 
   return {
@@ -75,9 +79,9 @@ const CommentsPage = ({tweetData}) => {
                   <h1 className="text-white font-bold">{tweetData.name}</h1>
                   <span>@{tweetData.username}</span>
                   <div className="w-1 h-1 bg-gray-500 rounded-full"> </div>
-                  <Moment fromNow>
-                    <span>{JSON.parse(tweetData.timestamp)}</span>
-                  </Moment>
+                  {tweetData.timestamp && (
+                    <Moment fromNow>{tweetData.timestamp}</Moment>
+                  )}
                 </div>
                 <span className="text-xl"> {tweetData.text}</span>
               </div>
@@ -115,7 +119,9 @@ const CommentsPage = ({tweetData}) => {
                     <h1 className="text-white font-bold">{comment.name}</h1>
                     <span>@{comment.username}</span>
                     <div className="w-1 h-1 bg-gray-500 rounded-full"> </div>
-                    <Moment fromNow></Moment>
+                    {comment.timestamp && (
+                      <Moment fromNow>{comment.timestamp}</Moment>
+                    )}
                   </div>
                   <span className=""> {comment.comment}</span>
                 </div>
